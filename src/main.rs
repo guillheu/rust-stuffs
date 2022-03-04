@@ -4,6 +4,7 @@ mod types;
 mod strings;
 mod assert;
 mod tuple;
+mod arrays;
 
 fn main() {
     print::run();
@@ -12,4 +13,5 @@ fn main() {
     strings::run();
     assert::run();
     tuple::run();
+    arrays::run();
 }
