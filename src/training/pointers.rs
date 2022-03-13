@@ -141,7 +141,7 @@ pub fn run() {
         //lets try
 
         //first, with clean (unborrowed) immutable variable to pointer to mutable:
-        let some_val = 69; //Nice.
+        let _some_val = 69; //Nice.
         //let mut_to_val = &mut some_val;       //Yep, this doesnt work as expected. error output :
         /*
 
@@ -159,7 +159,7 @@ pub fn run() {
         //Ok now lets make this mutable :
         let mut some_val = 69;       
         //Then, have some read-only pointers point to it
-        let immut_point = &some_val;
+        let _immut_point = &some_val;
         //Now, can I assign a pointer to mutable to it ?
         let mut_point = &mut some_val;
         //Yes I can !

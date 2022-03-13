@@ -91,4 +91,6 @@ pub fn run() {
 
     //Capacity seem very important in some application that handles an array of strings for instance. can save memory on the capacity
 
+
+    //Good video https://www.youtube.com/watch?v=tUG_NItm2HY
 }

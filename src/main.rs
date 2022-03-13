@@ -1,19 +1,9 @@
-mod print;
-mod variables;
-mod types;
-mod strings;
-mod assert;
-mod tuple;
-mod arrays;
-mod pointers;
-
+mod cryptopals;
 fn main() {
-    print::run();
-    variables::run();
-    types::run();
-    strings::run();
-    assert::run();
-    tuple::run();
-    arrays::run();
-    pointers::run();
+
+
+    cryptopals::set1::challenge_1();
+
+    // let b64_char = cryptopals::set1::make_b64_char(byte1, byte2, 0u8);
+    // println!("{}", b64_char);
 }
