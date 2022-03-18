@@ -1,6 +1,3 @@
-extern crate base64;
-
-
 pub fn challenge_1(){
     println!("Please enter hex string :");
     let input_stream = std::io::stdin();            //getting stdin stream
@@ -14,7 +11,7 @@ pub fn challenge_1(){
 
 
 
-pub fn hex_string_to_b64(s: &String) -> String{
+pub fn hex_string_to_b64(s: &str) -> String{
     let hex:Vec<u8> = hex_string_to_bytes(s).unwrap();       //converting given hex string into byte equivalents. e.g : "aa" would be x'aa', or b'10101010', or 170_u8
     let b64:String = b64_encode(hex);                        //encoding bytes into base64 string
     b64
@@ -22,7 +19,7 @@ pub fn hex_string_to_b64(s: &String) -> String{
 
 
 //This will iterate through all couples of hexadecimal characters of the given string, turning each character into their numeric equivalent and combining each couple into a single byte. 
-pub fn hex_string_to_bytes(hex: &String) -> Result<Vec<u8>, String>{
+pub fn hex_string_to_bytes(hex: &str) -> Result<Vec<u8>, String>{
     
     if hex.len()%2 != 0 || hex.len() != hex.chars().count() {
         //String::len returns the length of the string in bytes, not the number of characters.
@@ -45,26 +42,6 @@ pub fn make_byte_from_hex(hex1: char, hex2: char) -> u8 {
     ((hex1.to_digit(16).unwrap() as u8) << 4) | (hex2.to_digit(16).unwrap() as u8)
 }
 
-//equivalent to char::to_digit(16)
-//except to_digit will actually check if the character is hexadecimal
-//this function will accept a character that's over 1 byte long if its least significant byte has the same value as '0123456789', 'abcdef' of 'ABCDEF'
-//for instance, this function will think '〱' is a '1' because its lsb has value 49, which is '1' : https://www.w3schools.com/charsets/ref_utf_basic_latin.asp
-fn match_hex_val_to_bits(hex_char: char) -> Result<u8, String> {
-    println!("{}", hex_char as u8);
-    let shift = match hex_char as u8 {
-        48..=57     => Some(48),
-        97..=102    => Some(87),
-        65..=70     => Some(55),
-        _           => None,
-    };
-    println!("shift = {}", shift.unwrap());
-    match shift {
-        Some(n) => Ok(hex_char as u8 - n),
-        None    => Err(format!("Character {} is not hexadecimal", hex_char))
-    }
-}
-
-
 
 
 /*
@@ -85,7 +62,7 @@ pub fn b64_encode(bytes: Vec<u8>) -> String {
         let start_bit = (i*6)%24;
         let end_bit = start_bit + 5;
         let b1:u8 = bytes[(i/4)*3 + start_bit/8];
-        let mut b2:u8;
+        let b2:u8;
         if bytes.len() > ((i/4)*3 + end_bit/8) {
             b2 = bytes[(i/4)*3 + end_bit/8];
         }
@@ -109,11 +86,12 @@ pub fn b64_encode(bytes: Vec<u8>) -> String {
         out.push(b64_word_to_char(word).unwrap());
     }
 
-    for i in 0..padding {
-        out.push('=');
-    }
+    // for i in 0..padding {
+    //     out.push('=');
+    // }
+    out.push_str(&"=".repeat(padding as usize));
 
-    return out
+    out
 }
 
 
