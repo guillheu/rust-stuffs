@@ -25,7 +25,7 @@ pub fn hex_string_to_b64(s: &String) -> Result<String, String>{
 
 
 //This will iterate through all couples of hexadecimal characters of the given string, turning each character into their numeric equivalent and combining each couple into a single byte. 
-pub fn hex_string_to_bytes(hex: &String) -> Result<Vec<u8>, String>{
+pub fn hex_string_to_bytes(hex: &str) -> Result<Vec<u8>, String>{
     
     if hex.len()%2 != 0 || hex.len() != hex.chars().count() {
         //String::len returns the length of the string in bytes, not the number of characters.
@@ -102,7 +102,7 @@ pub fn b64_encode(bytes: &[u8]) -> String {
         out.push('=');
     }
 
-    return out
+    out
 }
 
 
