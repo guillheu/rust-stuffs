@@ -1,11 +1,16 @@
-extern crate clap;
+extern crate thiserror;
 
-pub fn challenge_1(){
-    println!("Please enter hex string :");        //getting stdin stream
-    let mut line = String::new();
-    std::io::stdin().read_line(&mut line).expect("error : unable to read user input");     //reading a line : .unwrap() THIS WILL ENFORCE 8 BITS UTF-8 (thats a good thing, but I'd like to know more about this function)
-    line = line.trim().to_string();                 //trimming the line (contains a trailing \n)
-    let b64 = match hex_string_to_b64(&line){       //converting given string (expectedly hex string) into base64
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+#[error("{encoding} : {message}")]
+pub struct FormatError{
+    encoding: String,
+    message: String,
+}
+
+pub fn challenge_1(val: &str){
+    let b64 = match hex_string_to_b64(&val){       //converting given string (expectedly hex string) into base64
         Ok(r)  => r,
         Err(e) => {
             eprintln!("Error when converting hex string to base 64 : {}", e);
@@ -17,15 +22,15 @@ pub fn challenge_1(){
 
 
 
-pub fn hex_string_to_b64(s: &String) -> Result<String, String>{
-    let hex:Vec<u8> = hex_string_to_bytes(s)?;       //converting given hex string into byte equivalents. e.g : "aa" would be x'aa', or b'10101010', or 170_u8
+pub fn hex_string_to_b64(s: &str) -> Result<String, FormatError>{
+    let hex:Vec<u8> = hex_string_to_bytes(s)?;                //converting given hex string into byte equivalents. e.g : "aa" would be x'aa', or b'10101010', or 170_u8
     let b64:String = b64_encode(&hex);                        //encoding bytes into base64 string
     Ok(b64)
 }
 
 
 //This will iterate through all couples of hexadecimal characters of the given string, turning each character into their numeric equivalent and combining each couple into a single byte. 
-pub fn hex_string_to_bytes(hex: &str) -> Result<Vec<u8>, String>{
+pub fn hex_string_to_bytes(hex: &str) -> Result<Vec<u8>, FormatError>{
     
     if hex.len()%2 != 0 || hex.len() != hex.chars().count() {
         //String::len returns the length of the string in bytes, not the number of characters.
@@ -35,7 +40,7 @@ pub fn hex_string_to_bytes(hex: &str) -> Result<Vec<u8>, String>{
         //And every 2 hex character encodes a byte
         //So the length of the byte vector should be half that of the hex string
         //Thus, so should its capacity if we want to optimise memory usage
-        return Err("Hex string should have an even amount of characters".to_string());
+        return Err(FormatError{encoding: "hexadecimal".to_string(), message: "Hex string should have an even amount of characters".to_string()});
     }
     let mut r:Vec<u8> = Vec::with_capacity(hex.len()/2);
     for byte_hex in hex.chars().collect::<Vec<char>>().windows(2).step_by(2) {
@@ -44,13 +49,17 @@ pub fn hex_string_to_bytes(hex: &str) -> Result<Vec<u8>, String>{
     Ok(r)
 }
 
-pub fn make_byte_from_hex(hex1: char, hex2: char) -> Result<u8, String> {
+pub fn make_byte_from_hex(hex1: char, hex2: char) -> Result<u8, FormatError> {
     let msb = (hex1
         .to_digit(16)
-        .ok_or("not a hex digit")? as u8) << 4;
+        .ok_or(
+            FormatError{encoding: "hexadecimal".to_string(), message: format!("found non hexadecimal digit '{}'", hex1)}
+        )? as u8) << 4;
     let lsb = hex2
         .to_digit(16)
-        .ok_or("not a hex digit")? as u8;
+        .ok_or(
+            FormatError{encoding: "hexadecimal".to_string(), message: format!("found non hexadecimal digit '{}'", hex2)}
+        )? as u8;
     Ok(msb | lsb)
 }
 
@@ -95,10 +104,10 @@ pub fn b64_encode(bytes: &[u8]) -> String {
     let mut out:String = String::new();
 
     for word in b64_words {
-        out.push(b64_word_to_char(word).unwrap());
+        out.push(b64_word_to_char(word).expect("found value > 63"));
     }
 
-    for _i in 0..padding {
+    for _ in 0..padding {
         out.push('=');
     }
 
@@ -109,14 +118,14 @@ pub fn b64_encode(bytes: &[u8]) -> String {
 
 
 
-pub fn b64_word_to_char(word: u8) -> Result<char, String> {
+pub fn b64_word_to_char(word: u8) -> Result<char, FormatError> {
     match word {
         0..=25  => Ok((word + 65) as char),
         26..=51 => Ok((word + 71) as char),
         52..=61 => Ok((word - 4) as char),
         62      => Ok('+'),
         63      => Ok('/'),
-        _       => Err("invalid base64 value (>63)".to_string()),
+        _       => Err(FormatError {encoding: "base 64".to_string(), message: format!("given value {} greater than max valid value 63", word)}),
   }
 }
 

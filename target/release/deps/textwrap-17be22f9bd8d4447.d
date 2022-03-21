@@ -1,0 +1,12 @@
+/root/rust-stuffs/target/release/deps/textwrap-17be22f9bd8d4447.rmeta: /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/lib.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/indentation.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/word_separators.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/word_splitters.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/wrap_algorithms.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/core.rs
+
+/root/rust-stuffs/target/release/deps/libtextwrap-17be22f9bd8d4447.rlib: /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/lib.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/indentation.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/word_separators.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/word_splitters.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/wrap_algorithms.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/core.rs
+
+/root/rust-stuffs/target/release/deps/textwrap-17be22f9bd8d4447.d: /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/lib.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/indentation.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/word_separators.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/word_splitters.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/wrap_algorithms.rs /usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/core.rs
+
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/lib.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/indentation.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/word_separators.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/word_splitters.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/wrap_algorithms.rs:
+/usr/local/cargo/registry/src/github.com-1ecc6299db9ec823/textwrap-0.15.0/src/core.rs:
